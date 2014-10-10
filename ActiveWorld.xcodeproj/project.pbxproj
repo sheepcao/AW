@@ -14,6 +14,33 @@
 		A454CD7D19E7BB4C00F117E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A454CD7C19E7BB4C00F117E9 /* Images.xcassets */; };
 		A454CD8019E7BB4C00F117E9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A454CD7E19E7BB4C00F117E9 /* LaunchScreen.xib */; };
 		A454CD8C19E7BB4C00F117E9 /* ActiveWorldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A454CD8B19E7BB4C00F117E9 /* ActiveWorldTests.m */; };
+		A454CD9B19E808DB00F117E9 /* pic6.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CD9519E808DB00F117E9 /* pic6.png */; };
+		A454CD9C19E808DB00F117E9 /* pic1.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CD9619E808DB00F117E9 /* pic1.png */; };
+		A454CD9D19E808DB00F117E9 /* pic2.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CD9719E808DB00F117E9 /* pic2.png */; };
+		A454CD9E19E808DB00F117E9 /* pic3.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CD9819E808DB00F117E9 /* pic3.png */; };
+		A454CD9F19E808DB00F117E9 /* pic4.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CD9919E808DB00F117E9 /* pic4.png */; };
+		A454CDA019E808DB00F117E9 /* pic5.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CD9A19E808DB00F117E9 /* pic5.png */; };
+		A454CDA419E81A5200F117E9 /* gameLevelController.m in Sources */ = {isa = PBXBuildFile; fileRef = A454CDA219E81A5200F117E9 /* gameLevelController.m */; };
+		A454CDA519E81A5200F117E9 /* gameLevelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A454CDA319E81A5200F117E9 /* gameLevelController.xib */; };
+		A454CDA819E81AA300F117E9 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDA619E81AA300F117E9 /* next.png */; };
+		A454CDA919E81AA300F117E9 /* prior.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDA719E81AA300F117E9 /* prior.png */; };
+		A454CDB619E81AFD00F117E9 /* board.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDAA19E81AFD00F117E9 /* board.png */; };
+		A454CDB719E81AFD00F117E9 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDAB19E81AFD00F117E9 /* camera.png */; };
+		A454CDB819E81AFD00F117E9 /* camera2.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDAC19E81AFD00F117E9 /* camera2.png */; };
+		A454CDB919E81AFD00F117E9 /* choiceBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDAD19E81AFD00F117E9 /* choiceBackground.png */; };
+		A454CDBA19E81AFD00F117E9 /* QuestionMark.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDAE19E81AFD00F117E9 /* QuestionMark.png */; };
+		A454CDBB19E81AFD00F117E9 /* QuestionMarkBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDAF19E81AFD00F117E9 /* QuestionMarkBlue.png */; };
+		A454CDBC19E81AFD00F117E9 /* returnTapped.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDB019E81AFD00F117E9 /* returnTapped.png */; };
+		A454CDBD19E81AFD00F117E9 /* returnTappedEN.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDB119E81AFD00F117E9 /* returnTappedEN.png */; };
+		A454CDBE19E81AFD00F117E9 /* returnToLevel.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDB219E81AFD00F117E9 /* returnToLevel.png */; };
+		A454CDBF19E81AFD00F117E9 /* returnToLevelEN.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDB319E81AFD00F117E9 /* returnToLevelEN.png */; };
+		A454CDC019E81AFD00F117E9 /* wrongImg.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDB419E81AFD00F117E9 /* wrongImg.png */; };
+		A454CDC119E81AFD00F117E9 /* 透明.png in Resources */ = {isa = PBXBuildFile; fileRef = A454CDB519E81AFD00F117E9 /* 透明.png */; };
+		A454CDC419E81D3A00F117E9 /* CommonUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = A454CDC319E81D3A00F117E9 /* CommonUtility.m */; };
+		A454CDC719E81D6B00F117E9 /* teachingView.m in Sources */ = {isa = PBXBuildFile; fileRef = A454CDC619E81D6B00F117E9 /* teachingView.m */; };
+		A454CDCB19E81E6100F117E9 /* uncompleteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A454CDCA19E81E6100F117E9 /* uncompleteImage.m */; };
+		A454CDCD19E81F3900F117E9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A454CDCC19E81F3900F117E9 /* UIKit.framework */; };
+		A454CDD319E8206A00F117E9 /* sharePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A454CDD219E8206A00F117E9 /* sharePhotoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +67,39 @@
 		A454CD8519E7BB4C00F117E9 /* ActiveWorldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActiveWorldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A454CD8A19E7BB4C00F117E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A454CD8B19E7BB4C00F117E9 /* ActiveWorldTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActiveWorldTests.m; sourceTree = "<group>"; };
+		A454CD9519E808DB00F117E9 /* pic6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic6.png; sourceTree = "<group>"; };
+		A454CD9619E808DB00F117E9 /* pic1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic1.png; sourceTree = "<group>"; };
+		A454CD9719E808DB00F117E9 /* pic2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic2.png; sourceTree = "<group>"; };
+		A454CD9819E808DB00F117E9 /* pic3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic3.png; sourceTree = "<group>"; };
+		A454CD9919E808DB00F117E9 /* pic4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic4.png; sourceTree = "<group>"; };
+		A454CD9A19E808DB00F117E9 /* pic5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic5.png; sourceTree = "<group>"; };
+		A454CDA119E81A5200F117E9 /* gameLevelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameLevelController.h; sourceTree = "<group>"; };
+		A454CDA219E81A5200F117E9 /* gameLevelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gameLevelController.m; sourceTree = "<group>"; };
+		A454CDA319E81A5200F117E9 /* gameLevelController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = gameLevelController.xib; sourceTree = "<group>"; };
+		A454CDA619E81AA300F117E9 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
+		A454CDA719E81AA300F117E9 /* prior.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prior.png; sourceTree = "<group>"; };
+		A454CDAA19E81AFD00F117E9 /* board.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = board.png; sourceTree = "<group>"; };
+		A454CDAB19E81AFD00F117E9 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		A454CDAC19E81AFD00F117E9 /* camera2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera2.png; sourceTree = "<group>"; };
+		A454CDAD19E81AFD00F117E9 /* choiceBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = choiceBackground.png; sourceTree = "<group>"; };
+		A454CDAE19E81AFD00F117E9 /* QuestionMark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMark.png; sourceTree = "<group>"; };
+		A454CDAF19E81AFD00F117E9 /* QuestionMarkBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = QuestionMarkBlue.png; sourceTree = "<group>"; };
+		A454CDB019E81AFD00F117E9 /* returnTapped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = returnTapped.png; sourceTree = "<group>"; };
+		A454CDB119E81AFD00F117E9 /* returnTappedEN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = returnTappedEN.png; sourceTree = "<group>"; };
+		A454CDB219E81AFD00F117E9 /* returnToLevel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = returnToLevel.png; sourceTree = "<group>"; };
+		A454CDB319E81AFD00F117E9 /* returnToLevelEN.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = returnToLevelEN.png; sourceTree = "<group>"; };
+		A454CDB419E81AFD00F117E9 /* wrongImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongImg.png; sourceTree = "<group>"; };
+		A454CDB519E81AFD00F117E9 /* 透明.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "透明.png"; sourceTree = "<group>"; };
+		A454CDC219E81D3A00F117E9 /* CommonUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtility.h; sourceTree = "<group>"; };
+		A454CDC319E81D3A00F117E9 /* CommonUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtility.m; sourceTree = "<group>"; };
+		A454CDC519E81D6B00F117E9 /* teachingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = teachingView.h; sourceTree = "<group>"; };
+		A454CDC619E81D6B00F117E9 /* teachingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = teachingView.m; sourceTree = "<group>"; };
+		A454CDC819E81D9E00F117E9 /* globalVar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = globalVar.h; sourceTree = "<group>"; };
+		A454CDC919E81E6100F117E9 /* uncompleteImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uncompleteImage.h; sourceTree = "<group>"; };
+		A454CDCA19E81E6100F117E9 /* uncompleteImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = uncompleteImage.m; sourceTree = "<group>"; };
+		A454CDCC19E81F3900F117E9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A454CDD119E8206A00F117E9 /* sharePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sharePhotoViewController.h; sourceTree = "<group>"; };
+		A454CDD219E8206A00F117E9 /* sharePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sharePhotoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A454CDCD19E81F3900F117E9 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +124,7 @@
 		A454CD6319E7BB4C00F117E9 = {
 			isa = PBXGroup;
 			children = (
+				A454CDCC19E81F3900F117E9 /* UIKit.framework */,
 				A454CD6E19E7BB4C00F117E9 /* ActiveWorld */,
 				A454CD8819E7BB4C00F117E9 /* ActiveWorldTests */,
 				A454CD6D19E7BB4C00F117E9 /* Products */,
@@ -81,10 +143,22 @@
 		A454CD6E19E7BB4C00F117E9 /* ActiveWorld */ = {
 			isa = PBXGroup;
 			children = (
+				A454CDC819E81D9E00F117E9 /* globalVar.h */,
+				A454CDC219E81D3A00F117E9 /* CommonUtility.h */,
+				A454CDC319E81D3A00F117E9 /* CommonUtility.m */,
+				A454CDC919E81E6100F117E9 /* uncompleteImage.h */,
+				A454CDCA19E81E6100F117E9 /* uncompleteImage.m */,
+				A454CDC519E81D6B00F117E9 /* teachingView.h */,
+				A454CDC619E81D6B00F117E9 /* teachingView.m */,
 				A454CD7319E7BB4C00F117E9 /* AppDelegate.h */,
 				A454CD7419E7BB4C00F117E9 /* AppDelegate.m */,
 				A454CD7619E7BB4C00F117E9 /* ViewController.h */,
 				A454CD7719E7BB4C00F117E9 /* ViewController.m */,
+				A454CDD119E8206A00F117E9 /* sharePhotoViewController.h */,
+				A454CDD219E8206A00F117E9 /* sharePhotoViewController.m */,
+				A454CDA119E81A5200F117E9 /* gameLevelController.h */,
+				A454CDA219E81A5200F117E9 /* gameLevelController.m */,
+				A454CDA319E81A5200F117E9 /* gameLevelController.xib */,
 				A454CD7919E7BB4C00F117E9 /* Main.storyboard */,
 				A454CD7C19E7BB4C00F117E9 /* Images.xcassets */,
 				A454CD7E19E7BB4C00F117E9 /* LaunchScreen.xib */,
@@ -96,7 +170,27 @@
 		A454CD6F19E7BB4C00F117E9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A454CDA619E81AA300F117E9 /* next.png */,
+				A454CDA719E81AA300F117E9 /* prior.png */,
+				A454CD9519E808DB00F117E9 /* pic6.png */,
+				A454CD9619E808DB00F117E9 /* pic1.png */,
+				A454CD9719E808DB00F117E9 /* pic2.png */,
+				A454CD9819E808DB00F117E9 /* pic3.png */,
+				A454CD9919E808DB00F117E9 /* pic4.png */,
+				A454CD9A19E808DB00F117E9 /* pic5.png */,
 				A454CD7019E7BB4C00F117E9 /* Info.plist */,
+				A454CDAA19E81AFD00F117E9 /* board.png */,
+				A454CDAB19E81AFD00F117E9 /* camera.png */,
+				A454CDAC19E81AFD00F117E9 /* camera2.png */,
+				A454CDAD19E81AFD00F117E9 /* choiceBackground.png */,
+				A454CDAE19E81AFD00F117E9 /* QuestionMark.png */,
+				A454CDAF19E81AFD00F117E9 /* QuestionMarkBlue.png */,
+				A454CDB019E81AFD00F117E9 /* returnTapped.png */,
+				A454CDB119E81AFD00F117E9 /* returnTappedEN.png */,
+				A454CDB219E81AFD00F117E9 /* returnToLevel.png */,
+				A454CDB319E81AFD00F117E9 /* returnToLevelEN.png */,
+				A454CDB419E81AFD00F117E9 /* wrongImg.png */,
+				A454CDB519E81AFD00F117E9 /* 透明.png */,
 				A454CD7119E7BB4C00F117E9 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -182,6 +276,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = A454CD6319E7BB4C00F117E9;
 			productRefGroup = A454CD6D19E7BB4C00F117E9 /* Products */;
@@ -200,8 +295,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				A454CD7B19E7BB4C00F117E9 /* Main.storyboard in Resources */,
+				A454CDBE19E81AFD00F117E9 /* returnToLevel.png in Resources */,
+				A454CD9B19E808DB00F117E9 /* pic6.png in Resources */,
+				A454CDC019E81AFD00F117E9 /* wrongImg.png in Resources */,
+				A454CDBA19E81AFD00F117E9 /* QuestionMark.png in Resources */,
+				A454CDBF19E81AFD00F117E9 /* returnToLevelEN.png in Resources */,
+				A454CDC119E81AFD00F117E9 /* 透明.png in Resources */,
+				A454CDB919E81AFD00F117E9 /* choiceBackground.png in Resources */,
+				A454CD9C19E808DB00F117E9 /* pic1.png in Resources */,
+				A454CDB619E81AFD00F117E9 /* board.png in Resources */,
+				A454CDA819E81AA300F117E9 /* next.png in Resources */,
 				A454CD8019E7BB4C00F117E9 /* LaunchScreen.xib in Resources */,
+				A454CDBB19E81AFD00F117E9 /* QuestionMarkBlue.png in Resources */,
+				A454CDA519E81A5200F117E9 /* gameLevelController.xib in Resources */,
+				A454CDBD19E81AFD00F117E9 /* returnTappedEN.png in Resources */,
+				A454CDB819E81AFD00F117E9 /* camera2.png in Resources */,
 				A454CD7D19E7BB4C00F117E9 /* Images.xcassets in Resources */,
+				A454CDB719E81AFD00F117E9 /* camera.png in Resources */,
+				A454CDBC19E81AFD00F117E9 /* returnTapped.png in Resources */,
+				A454CDA019E808DB00F117E9 /* pic5.png in Resources */,
+				A454CDA919E81AA300F117E9 /* prior.png in Resources */,
+				A454CD9D19E808DB00F117E9 /* pic2.png in Resources */,
+				A454CD9E19E808DB00F117E9 /* pic3.png in Resources */,
+				A454CD9F19E808DB00F117E9 /* pic4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,8 +336,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A454CD7819E7BB4C00F117E9 /* ViewController.m in Sources */,
+				A454CDD319E8206A00F117E9 /* sharePhotoViewController.m in Sources */,
+				A454CDC419E81D3A00F117E9 /* CommonUtility.m in Sources */,
 				A454CD7519E7BB4C00F117E9 /* AppDelegate.m in Sources */,
+				A454CDCB19E81E6100F117E9 /* uncompleteImage.m in Sources */,
+				A454CDA419E81A5200F117E9 /* gameLevelController.m in Sources */,
 				A454CD7219E7BB4C00F117E9 /* main.m in Sources */,
+				A454CDC719E81D6B00F117E9 /* teachingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,20 +463,50 @@
 		A454CD9019E7BB4C00F117E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ShareSDK/Connection",
+					"$(PROJECT_DIR)/ShareSDK/Core",
+					"$(PROJECT_DIR)/ShareSDK/Extend/QQConnectSDK",
+					"$(PROJECT_DIR)/ShareSDK",
+					"$(PROJECT_DIR)/ShareSDK/UI",
+				);
 				INFOPLIST_FILE = ActiveWorld/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ShareSDK/Extend/SinaWeiboSDK",
+					"$(PROJECT_DIR)/ShareSDK/Extend/WeChatSDK",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
 		A454CD9119E7BB4C00F117E9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ShareSDK/Connection",
+					"$(PROJECT_DIR)/ShareSDK/Core",
+					"$(PROJECT_DIR)/ShareSDK/Extend/QQConnectSDK",
+					"$(PROJECT_DIR)/ShareSDK",
+					"$(PROJECT_DIR)/ShareSDK/UI",
+				);
 				INFOPLIST_FILE = ActiveWorld/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ShareSDK/Extend/SinaWeiboSDK",
+					"$(PROJECT_DIR)/ShareSDK/Extend/WeChatSDK",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
