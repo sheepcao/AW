@@ -17,6 +17,32 @@
 
 @implementation gameLevelController
 
+
+@synthesize backIMG;
+
+
+@synthesize animationBegin;
+@synthesize picture;
+@synthesize answer1;
+@synthesize answer2;
+@synthesize answer3;
+@synthesize nextButton;
+@synthesize priorButton;
+@synthesize choices;
+@synthesize empty;
+@synthesize levelCount;
+@synthesize teachView;
+@synthesize wrongLabel;
+@synthesize myImg;
+@synthesize emptyGif;
+@synthesize webView;
+@synthesize questionMark;
+@synthesize backButton;
+
+@synthesize levelNumber;
+
+
+
 double posX[MAXlevel] = {216.6,113.1,107.4,118.5,90.6,/*5*/141.4};
 double posY[MAXlevel] = {277.1,284.3,282.5,195.1,340.1,/*5*/274.7};
 double animationSpeed[MAXlevel] = {0.35,0.31,0.27,0.34,0.33,/*5*/0.24};
@@ -40,6 +66,18 @@ NSMutableArray  *arrayGif;
 {
     [super viewDidLoad];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated
+
+{
+    level = [self.levelNumber intValue];
+
+
+    
+    
+    
+    
     
     if ([CommonUtility isSystemLangChinese]) {
         
@@ -50,45 +88,51 @@ NSMutableArray  *arrayGif;
         [self.backButton setImage:[UIImage imageNamed:@"returnToLevelEN"] forState:UIControlStateNormal];
         [self.backButton setImage:[UIImage imageNamed:@"returnTappedEN"] forState:UIControlStateHighlighted];
     }
-
+    
     
     
     self.isFormRewordFlag = NO;
-
+    
     
     for (int i=0; i<levelTop-1; i++) {
         haveFixed[i]= YES;
     }
-    NSLog(@"levelTop:%d,fixed:%d",levelTop,haveFixed[levelTop-1]);
+
     
-    self.answer1 = [[UIButton alloc] initWithFrame:CGRectMake(33, 450, 55, 55)];
-    self.answer1.tag = 1;
-    self.answer2 = [[UIButton alloc] initWithFrame:CGRectMake(131, 450, 55, 55)];
-    self.answer2.tag = 2;
-    self.answer3 = [[UIButton alloc] initWithFrame:CGRectMake(228, 450, 55, 55)];
-    self.answer3.tag = 3;
+    picture = [[UIImageView alloc] initWithFrame:CGRectMake(self.priorButton.center.x, 190,self.nextButton.center.x - self.priorButton.center.x ,(self.nextButton.center.x - self.priorButton.center.x) * 230/250)];
+    
+    answer2 = [[UIButton alloc] initWithFrame:CGRectMake(picture.center.x-27.5, picture.frame.origin.y + picture.frame.size.height + 30, 55, 55)];
+    answer2.tag = 2;
+    
+    answer1 = [[UIButton alloc] initWithFrame:CGRectMake(picture.frame.origin.x, answer2.frame.origin.y, 55, 55)];
+    answer1.tag = 1;
 
-    [self.answer1 setBackgroundImage:[UIImage imageNamed:@"choiceBackground"] forState:UIControlStateNormal];
-    [self.answer2 setBackgroundImage:[UIImage imageNamed:@"choiceBackground"] forState:UIControlStateNormal];
-    [self.answer3 setBackgroundImage:[UIImage imageNamed:@"choiceBackground"] forState:UIControlStateNormal];
-    [self.answer1 addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
-    [self.answer2 addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
-    [self.answer3 addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
-
-
+    answer3 = [[UIButton alloc] initWithFrame:CGRectMake(picture.frame.origin.x + picture.frame.size.width - 55, answer2.frame.origin.y, 55, 55)];
+    answer3.tag = 3;
+    
+    [answer1 setBackgroundImage:[UIImage imageNamed:@"choiceBackground"] forState:UIControlStateNormal];
+    [answer2 setBackgroundImage:[UIImage imageNamed:@"choiceBackground"] forState:UIControlStateNormal];
+    [answer3 setBackgroundImage:[UIImage imageNamed:@"choiceBackground"] forState:UIControlStateNormal];
+    [answer1 addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
+    [answer2 addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
+    [answer3 addTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     if ([[UIScreen mainScreen] bounds].size.height == 480) {
         
-        self.picture = [[UIImageView alloc] initWithFrame: CGRectMake(33, 157, 250, 230)];
-     
+        [self.picture setFrame: CGRectMake(33, 157, 250, 230)];
+        
         self.animationBegin = [[UIButton alloc] initWithFrame:CGRectMake(33, 157, 250, 230)];
-
+        
         [self.answer1 setFrame:CGRectMake(33, 400, 55, 55)];
         [self.answer2 setFrame:CGRectMake(131, 400, 55, 55)];
         [self.answer3 setFrame:CGRectMake(228, 400, 55, 55)];
         
     }else
     {
-        self.picture = [[UIImageView alloc] initWithFrame:CGRectMake(33, 190, 250, 230)];
+//        picture = [[UIImageView alloc] initWithFrame:CGRectMake(self.priorButton.center.x, 190,self.nextButton.center.x - self.priorButton.center.x ,(self.nextButton.center.x - self.priorButton.center.x) * 230/250)];
+//        picture.layer.borderWidth = 1.0f;
+//        picture.layer.borderColor = [UIColor redColor].CGColor;
         self.animationBegin = [[UIButton alloc] initWithFrame:CGRectMake(33, 190, 250, 230)];
         posY[level-1] +=1;
     }
@@ -96,7 +140,7 @@ NSMutableArray  *arrayGif;
     [self.view addSubview:self.answer2];
     [self.view addSubview:self.answer3];
     self.animationBegin.backgroundColor = [UIColor clearColor];
-    self.picture.layer.borderWidth = 0;
+    //    self.picture.layer.borderWidth = 0;
     [self.view addSubview:self.picture];
     [self.view addSubview:self.animationBegin];
     [self.view bringSubviewToFront:self.animationBegin];
@@ -107,16 +151,16 @@ NSMutableArray  *arrayGif;
     wordsCN = [words1 componentsSeparatedByString:@","];
     NSString *words2 = @"pig,cat,rabbit,chicken,frog,bee,dog,shark,snail,koala,badminton,football,table tennis,golf,bowling,archery,skiing,basketball,sailing,weighting,milk,potato,mooncake,chestnut,rice,pizza,watermelon,peanut,orange,cucumber,glasses,toothbrush,pen,traffic light,pacifier,toilet,clock,candle,magnifier,landry,sunflower,willow,rose,lotus,bamboo,pine,cactus,gingko,chrysanthemum,morning glory";
     wordsEN = [words2 componentsSeparatedByString:@","];
-
+    
     NSString *backgroundNames = @"animalBackground";
     backgroundName = [backgroundNames componentsSeparatedByString:@","];
-
+    
     self.empty = [[UIButton alloc] init];
     [self.empty setBackgroundColor:[UIColor clearColor]];
     self.empty.layer.borderWidth = 0;
-
-//share change task.    [self.shareBtn setHidden:YES];
-
+    
+    //share change task.    [self.shareBtn setHidden:YES];
+    
     self.questionMark = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 55, 55)];
     self.questionMark.layer.borderWidth = 0;
     self.questionMark.alpha = 0.8;
@@ -129,54 +173,21 @@ NSMutableArray  *arrayGif;
     [arrayGif addObject:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"透明" ofType:@"png"]]];
     
     [arrayGif addObject:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QuestionMarkBlue" ofType:@"png"]]];
-
+    
     [arrayGif addObject:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"透明" ofType:@"png"]]];
-
     
-//     self.view.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"animalBackground" ofType:@"png"]]];
     
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"animalBackground" ofType:@"png"]] drawInRect:self.view.bounds];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
-
     
-  //set ad......iad and admob
-//    if ([[UIScreen mainScreen] bounds].size.height == 568) {
-//        self.iAdBannerView = [[ADBannerView alloc] initWithFrame:CGRectMake(0.0,self.view.frame.size.height - GAD_SIZE_320x50.height,GAD_SIZE_320x50.width,GAD_SIZE_320x50.height)];
-//        
-//        [self.iAdBannerView setDelegate:self];
-//        self.iAdBannerView.backgroundColor = [UIColor clearColor];
-//        
-//        [self.view addSubview:self.iAdBannerView];
-//        self.bannerIsVisible = YES;
-//        
-//        self.gAdBannerView = [[GADBannerView alloc]
-//                              initWithFrame:CGRectMake(0.0,self.view.frame.size.height - GAD_SIZE_320x50.height,GAD_SIZE_320x50.width,GAD_SIZE_320x50.height)];
-//        
-//        self.gAdBannerView.adUnitID = ADMOB_ID;//调用id
-//        
-//        self.gAdBannerView.delegate = self;
-//        self.gAdBannerView.rootViewController = self;
-//        self.gAdBannerView.backgroundColor = [UIColor clearColor];
-//        [self.gAdBannerView loadRequest:[GADRequest request]];
-//        
-//        
-//    }    
-}
-
-- (void)viewDidAppear:(BOOL)animated
-
-{
-    level = [self.levelNumber intValue];
-
+    [self.view sendSubviewToBack:backIMG];
+    [backIMG setImage:[UIImage imageNamed:@"animalBackground"]];
+    
+    
     
     if (self.isFormRewordFlag == YES) {
         self.isFormRewordFlag = NO;
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-
+    
     [self.animationBegin setHidden:YES];
     
     for (int i =0; i<3; i++) {
@@ -185,11 +196,11 @@ NSMutableArray  *arrayGif;
     
     
     self.myImg = [[uncompleteImage alloc] initWithEmptyX:posX[level-1] Y:posY[level-1]];
-
-    [self setupWithEmptyPosition:self.myImg.positionX :self.myImg.positionY];
-
     
-    self.teachView = [[teachingView alloc] initWithWordsAndSound:wordsCN[level-1] english:wordsEN[level-1] soundCN:wordsCN[level-1] soundEN:wordsEN[level-1]];
+    [self setupWithEmptyPosition:self.myImg.positionX :self.myImg.positionY];
+    
+    
+    self.teachView = [[teachingView alloc] initWithWordsAndSound:wordsCN[level-1] english:wordsEN[level-1] soundCN:wordsCN[level-1] soundEN:wordsEN[level-1] between:priorButton and:nextButton];
     
     if (!haveFixed[level-1]) {
         
@@ -198,9 +209,8 @@ NSMutableArray  *arrayGif;
     }else
     {
         [self.nextButton setEnabled:YES];
-
+        
     }
-    
     if (arrayGif.count>0) {
         //设置动画数组
         [self.questionMark setAnimationImages:arrayGif];
@@ -213,131 +223,14 @@ NSMutableArray  *arrayGif;
         
         
     }
-    
-    //投稿alert.
-    if ((level-10)%10 == 1) {
-        
-   
-//        [self setupAlert];
-        
-    }
+
 
 }
 
 
-
-//-(void)setupAlert
-//{
-//    
-//    UIView *tmpCustomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 , 300, 208)];
-//    //    tmpCustomView.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"tagAlert" ofType:@"png"]]];
-//    
-//    
-//    //    UIImageView *imageInTag = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 300 , 211)];
-//    //    imageInTag.image = [UIImage imageNamed:@"tagAlert.png"];
-//    //
-//    //    [tmpCustomView addSubview:imageInTag];
-//    //    [tmpCustomView sendSubviewToBack:imageInTag];
-//    //    tmpCustomView.backgroundColor = [UIColor clearColor];
-//    
-//    
-//    
-//    UIButton *goInAlert = [[UIButton alloc] initWithFrame:CGRectMake(40, 145, 90, 47)];
-//    UIButton *cancelInAlert = [[UIButton alloc] initWithFrame:CGRectMake(170, 145, 90, 47)];
-//    
-//    if ([CommonUtility isSystemLangChinese]) {
-//        
-//        tmpCustomView.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"submitAlert" ofType:@"png"]]];
-//        
-//        
-//        [goInAlert setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"okButton" ofType:@"png"]] forState:UIControlStateNormal];
-//        [cancelInAlert setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"cancelButton" ofType:@"png"]] forState:UIControlStateNormal];
-//        
-//        
-//    }else
-//    {
-//        tmpCustomView.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-submitAlert" ofType:@"png"]]];
-//        
-//        
-//        [goInAlert setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-okButton" ofType:@"png"]] forState:UIControlStateNormal];
-//        [cancelInAlert setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-cancelButton" ofType:@"png"]] forState:UIControlStateNormal];
-//    }
-//    
-//    //    [self.lockedInAlert setTitle:@"前往当前进度" forState:UIControlStateNormal];
-//    //    self.lockedInAlert.titleLabel.font = [UIFont systemFontOfSize:14.0];
-//    //    self.lockedInAlert.titleLabel.textColor = [UIColor redColor];
-//    
-//    
-//    //    self.lockedInAlert.backgroundColor = [UIColor greenColor];
-//    [goInAlert addTarget:self action:@selector(goToLevelNow) forControlEvents:UIControlEventTouchUpInside];
-//    [cancelInAlert addTarget:self action:@selector(closeAlert) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [tmpCustomView addSubview:goInAlert];
-//    [tmpCustomView addSubview:cancelInAlert];
-//    
-//    CustomIOS7AlertView *alert = [[CustomIOS7AlertView alloc] init];
-//    [alert setButtonTitles:[NSMutableArray arrayWithObjects:nil]];
-//    alert.backgroundColor = [UIColor whiteColor];
-//    
-//    self.submitAlert = alert;
-//    
-//    [alert setContainerView:tmpCustomView];
-//    [alert show];
-//    
-//}
-
-//-(void)goToLevelNow
-//{
-//    [CommonUtility tapSound];
-//
-//    moreInfoViewController *more = [[moreInfoViewController alloc] init];
-//    more.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-//    [self presentViewController:more animated:YES completion:Nil ];
-//    [self.submitAlert close];
-//
-//}
-
-//-(void)closeAlert
-//{
-//    [CommonUtility tapSound:@"backAndCancel" withType:@"mp3"];
-//
-//    [self.submitAlert close];
-//
-//}
-
-//ad...big
-//-(void)bigAd
-//{
-//    self.interstitial = [[GADInterstitial alloc] init];
-//    self.interstitial.delegate = self;
-//    
-//    // Note: Edit InterstitialExampleAppDelegate.m to update
-//    // INTERSTITIAL_AD_UNIT_ID with your interstitial ad unit id.
-//    AppDelegate *appDelegate =
-//    (AppDelegate *)[UIApplication sharedApplication].delegate;
-//    self.interstitial.adUnitID = ADMOB_ID_DaysInLine;
-//    
-//    [self.interstitial loadRequest: [appDelegate createRequest]];
-//}
-
-
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-//    [MobClick endLogPageView:@"gamePage"];
-    //ad...big
-    if (ADTimer != nil)
-	{
-		[ADTimer invalidate];
-		ADTimer = nil;
-	}
-}
 
 -(void)setupWithEmptyPosition:(NSInteger )px :(NSInteger )py
 {
-    levelTop = levelTop<level?level:levelTop;
-    
     
     [self.levelCount setText:[NSString stringWithFormat:@"%d",level]];
     self.levelCount.font = [UIFont fontWithName:@"SegoePrint" size:23];
@@ -361,31 +254,11 @@ NSMutableArray  *arrayGif;
     
     
     [self setImages:an1:an2 :an3 :pic];
-//
-//    
-//    if (level%10 == 9) {
-//        [self.empty setFrame:CGRectMake(px, py, largeEmpty[(level-1)/10], largeEmpty[(level-1)/10])];
-//        
-//        [self.questionMark setFrame:CGRectMake(0, 0, largeEmpty[(level-1)/10], largeEmpty[(level-1)/10])];
-//
-//    }else
-//    {
    
-        [self.empty setFrame:CGRectMake(px, py, 55, 55)];
+    [self.empty setFrame:CGRectMake(px, py, 55, 55)];
         
-        [self.questionMark setFrame:CGRectMake(0, 0, 55, 55)];
-//    }
-//    if(level ==16)
-//    {
-//        [self.empty setFrame:CGRectMake(px, py, 150,150)];
-//        [self.questionMark setFrame:CGRectMake(0, 0, 150,150)];
-//
-//    }
-//    if(level ==17)
-//    {
-//        [self.empty setFrame:CGRectMake(px, py, 100,100)];
-//        [self.questionMark setFrame:CGRectMake(0, 0, 100,100)];
-//    }
+    [self.questionMark setFrame:CGRectMake(0, 0, 55, 55)];
+
     [self setButton:self.empty];
     self.empty.layer.borderWidth = 0;
     
@@ -400,22 +273,20 @@ NSMutableArray  *arrayGif;
     [self.empty removeTarget:self action:@selector(buttonTap:) forControlEvents:UIControlEventTouchUpInside];
     
     
-//share change task.    [self.shareBtn setHidden:YES];
-    
-
-    if (!haveFixed[level-1]) {
-        
-        [self.nextButton setEnabled:NO];
-        
-    }else
-    {
+//
+//    if (!haveFixed[level-1]) {
+//        
+//        [self.nextButton setEnabled:NO];
+//        
+//    }else
+//    {
         [self.nextButton setEnabled:YES];
   
         
-    }
+//    }
     
     //每个主题的第一关不允许点击上一关
-    if (level%10 == 1) {
+    if (level == 1) {
         [self.priorButton setEnabled:NO];
     }else
     {
@@ -451,6 +322,10 @@ NSMutableArray  *arrayGif;
     [self.questionMark setHidden:NO];
     
     
+    
+    
+    
+    
 }
 
 -(void)setButton:(UIButton *)btn
@@ -463,14 +338,8 @@ NSMutableArray  *arrayGif;
 
 -(void)buttonTap:(UIButton *)sender
 {
-//    
-//    NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"choiceSound" ofType: @"mp3"];
-//    NSURL *fileURL = [[NSURL alloc] initFileURLWithPath:soundFilePath ];
-//    self.myAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
-//    //    self.myAudioPlayer.numberOfLoops = -1; //infinite loop
-//    [self.myAudioPlayer play];
 
-    [CommonUtility tapSound:@"choiceSound" withType:@"mp3"];
+//    [CommonUtility tapSound:@"choiceSound" withType:@"mp3"];
     
     if (sender.tag == 0) {
         if (self.empty.imageView.image) {
@@ -556,7 +425,7 @@ NSMutableArray  *arrayGif;
 -(void)sayEnglish
 {
 //    AudioServicesPlaySystemSound([self.teachView.soundENObj intValue]);
-    [CommonUtility tapSound:wordsEN[level-1] withType:@"wav"];
+//    [CommonUtility tapSound:wordsEN[level-1] withType:@"wav"];
     
 }
 
@@ -584,7 +453,7 @@ NSMutableArray  *arrayGif;
     
 //    AudioServicesPlaySystemSound([self.teachView.soundCNObj intValue]);
 
-    [CommonUtility tapSound:wordsCN[level-1] withType:@"wav"];
+//    [CommonUtility tapSound:wordsCN[level-1] withType:@"wav"];
 
     [NSTimer scheduledTimerWithTimeInterval:1.6 target:self selector:@selector(sayEnglish) userInfo:nil repeats:NO];
     
@@ -672,15 +541,8 @@ NSMutableArray  *arrayGif;
 
 -(void)wrongAnswer{
     
-//    SystemSoundID soundSmile;
-//    
-//    CFBundleRef CNbundle=CFBundleGetMainBundle();
-//    
-//    CFURLRef soundfileurl=CFBundleCopyResourceURL(CNbundle,(__bridge CFStringRef)@"衰",CFSTR("wav"),NULL);
-//    //创建system sound 对象
-//    AudioServicesCreateSystemSoundID(soundfileurl, &soundSmile);
-//    AudioServicesPlaySystemSound(soundSmile);
-    [CommonUtility tapSound:@"衰" withType:@"wav"];
+    
+//    [CommonUtility tapSound:@"衰" withType:@"wav"];
 
     
     int scoreTemp = [[scores objectAtIndex:((level-1)/10)] intValue];
@@ -696,16 +558,20 @@ NSMutableArray  *arrayGif;
     
     if ([[UIScreen mainScreen] bounds].size.height == 480) {
         
-            self.wrongLabel = [[UIImageView alloc] initWithFrame:CGRectMake(80, 60, 160, 100)];
+        self.wrongLabel = [[UIImageView alloc] initWithFrame:CGRectMake(80, 60, 160, 100)];
+
+
     }else
     {
-        self.wrongLabel = [[UIImageView alloc] initWithFrame:CGRectMake(80, 70, 160, 120)];
+//        self.wrongLabel = [[UIImageView alloc] initWithFrame:CGRectMake(80, 70, 160, 120)];
+        
+        self.wrongLabel = [[UIImageView alloc] initWithFrame:CGRectMake(self.priorButton.frame.origin.x + self.priorButton.frame.size.width+5, self.priorButton.frame.origin.y -10, self.nextButton.frame.origin.x - self.priorButton.frame.origin.x - self.priorButton.frame.size.width -10, 100)];
     }
 
     [self.wrongLabel setImage:[UIImage imageNamed:@"board" ]];
     [self.wrongLabel setContentMode:UIViewContentModeScaleToFill];
 
-    UIImageView *cryFace = [[UIImageView alloc] initWithFrame:CGRectMake(45, 15, 65, 65)];
+    UIImageView *cryFace = [[UIImageView alloc] initWithFrame:CGRectMake(self.wrongLabel.frame.size.width/2 - 32, 15, 65, 65)];
     cryFace.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"wrongImg" ofType:@"png"]];
     [self.wrongLabel addSubview:cryFace];
     [self.view addSubview:self.wrongLabel];
@@ -744,7 +610,7 @@ NSMutableArray  *arrayGif;
 - (IBAction)priorLevel {
 
     
-    [CommonUtility tapSound:@"levelSound" withType:@"mp3"];
+//    [CommonUtility tapSound:@"levelSound" withType:@"mp3"];
 
     
 //    [MobClick event:@"2"];
@@ -768,7 +634,7 @@ NSMutableArray  *arrayGif;
 - (IBAction)nextLevel {
 
     
-    [CommonUtility tapSound:@"levelSound" withType:@"mp3"];
+//    [CommonUtility tapSound:@"levelSound" withType:@"mp3"];
     
 //    [MobClick event:@"1"];
     
@@ -813,30 +679,31 @@ NSMutableArray  *arrayGif;
 
 - (IBAction)backToLevel {
     
-    [CommonUtility tapSound:@"backAndCancel" withType:@"mp3"];
+//    [CommonUtility tapSound:@"backAndCancel" withType:@"mp3"];
 
-    [self dismissViewControllerAnimated:YES completion:Nil];
+//    [self dismissViewControllerAnimated:YES completion:Nil];
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 
-- (IBAction)share {
-    
-    [CommonUtility tapSound];
-
-    
-//    sharePhotoViewController *myShare = [[sharePhotoViewController alloc] initWithNibName:@"sharePhotoViewController" bundle:nil];
-//    myShare.frontImageName = sharePic[(level-1)/10];
-//    myShare.afterShutter = NO;
-//    myShare.backImage.image = nil;
+//- (IBAction)share {
 //    
-//    myShare.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-//    [self presentViewController:myShare animated:YES completion:Nil ];
-
-}
+//    [CommonUtility tapSound];
+//
+//    
+////    sharePhotoViewController *myShare = [[sharePhotoViewController alloc] initWithNibName:@"sharePhotoViewController" bundle:nil];
+////    myShare.frontImageName = sharePic[(level-1)/10];
+////    myShare.afterShutter = NO;
+////    myShare.backImage.image = nil;
+////    
+////    myShare.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+////    [self presentViewController:myShare animated:YES completion:Nil ];
+//
+//}
 
 - (IBAction)animationTapped:(id)sender {
     
-    [CommonUtility tapSound];
+//    [CommonUtility tapSound];
 
     [self.nextButton setEnabled:NO];
     [self.priorButton setEnabled:NO];
@@ -870,7 +737,7 @@ NSMutableArray  *arrayGif;
 //    [MobClick event:@"5"];
 //    AudioServicesPlaySystemSound([self.teachView.soundCNObj intValue]);
 
-    [CommonUtility tapSound:wordsCN[level-1] withType:@"wav"];
+//    [CommonUtility tapSound:wordsCN[level-1] withType:@"wav"];
 
 }
 
@@ -878,7 +745,7 @@ NSMutableArray  *arrayGif;
 {
 //      [MobClick event:@"6"];
 //    AudioServicesPlaySystemSound([self.teachView.soundENObj intValue]);
-    [CommonUtility tapSound:wordsEN[level-1] withType:@"wav"];
+//    [CommonUtility tapSound:wordsEN[level-1] withType:@"wav"];
 
 }
 -(void)emptyDisappear

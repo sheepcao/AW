@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="gameLevelController">
             <connections>
                 <outlet property="backButton" destination="JGH-QC-2vU" id="ZND-Va-mdX"/>
+                <outlet property="backIMG" destination="4jd-r4-y93" id="ibu-uO-1TX"/>
                 <outlet property="levelCount" destination="jbD-O6-huF" id="qn4-QA-gFD"/>
                 <outlet property="nextButton" destination="WNi-8j-2YR" id="B2u-MI-NHY"/>
                 <outlet property="priorButton" destination="eer-2c-cpw" id="Y2f-FQ-iz0"/>
@@ -19,8 +20,12 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGH-QC-2vU">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGH-QC-2vU">
                     <rect key="frame" x="15" y="23" width="53" height="34"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="34" id="bV9-1U-gAJ"/>
+                        <constraint firstAttribute="width" constant="53" id="xek-mB-6fF"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" image="returnToLevel.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -31,8 +36,8 @@
                         <action selector="backToLevel" destination="-1" eventType="touchUpInside" id="hhQ-Ok-HiU"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwA-YO-eL5">
-                    <rect key="frame" x="245" y="19" width="55" height="38"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwA-YO-eL5">
+                    <rect key="frame" x="247" y="19" width="53" height="38"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" image="camera.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,8 +48,12 @@
                         <action selector="share" destination="-1" eventType="touchUpInside" id="tPs-XH-s4m"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WNi-8j-2YR">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WNi-8j-2YR">
                     <rect key="frame" x="241" y="93" width="59" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="59" id="TvO-Iq-eqd"/>
+                        <constraint firstAttribute="height" constant="40" id="ilH-pV-amc"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" image="next.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,7 +62,7 @@
                         <action selector="nextLevel" destination="-1" eventType="touchUpInside" id="5Co-sq-P0A"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eer-2c-cpw">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eer-2c-cpw">
                     <rect key="frame" x="20" y="93" width="59" height="40"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" image="prior.png">
@@ -63,15 +72,41 @@
                         <action selector="priorLevel" destination="-1" eventType="touchUpInside" id="HVJ-KE-gdS"/>
                     </connections>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbD-O6-huF" userLabel="levelCount">
-                    <rect key="frame" x="127" y="23" width="65" height="40"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbD-O6-huF" userLabel="levelCount">
+                    <rect key="frame" x="127" y="23" width="65" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4jd-r4-y93">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="jbD-O6-huF" secondAttribute="centerX" constant="0.5" id="0rY-tA-LvG"/>
+                <constraint firstItem="JGH-QC-2vU" firstAttribute="top" secondItem="jbD-O6-huF" secondAttribute="top" id="4SR-fl-ncd"/>
+                <constraint firstItem="JGH-QC-2vU" firstAttribute="bottom" secondItem="dwA-YO-eL5" secondAttribute="bottom" id="ALe-Fw-YqS"/>
+                <constraint firstItem="jbD-O6-huF" firstAttribute="height" secondItem="JGH-QC-2vU" secondAttribute="height" id="Esr-hn-mUJ"/>
+                <constraint firstItem="WNi-8j-2YR" firstAttribute="width" secondItem="eer-2c-cpw" secondAttribute="width" id="Gid-cg-xxf"/>
+                <constraint firstItem="eer-2c-cpw" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Mhb-8Q-X14"/>
+                <constraint firstItem="4jd-r4-y93" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="Mpa-47-BL7"/>
+                <constraint firstItem="JGH-QC-2vU" firstAttribute="top" secondItem="1" secondAttribute="top" constant="23" id="OG6-Jq-FXa"/>
+                <constraint firstItem="jbD-O6-huF" firstAttribute="leading" secondItem="JGH-QC-2vU" secondAttribute="trailing" constant="59" id="OLx-8A-0lB"/>
+                <constraint firstItem="eer-2c-cpw" firstAttribute="top" secondItem="JGH-QC-2vU" secondAttribute="bottom" constant="36" id="Ra6-9R-i59"/>
+                <constraint firstAttribute="trailing" secondItem="4jd-r4-y93" secondAttribute="trailing" id="SIt-hI-2W5"/>
+                <constraint firstAttribute="trailing" secondItem="WNi-8j-2YR" secondAttribute="trailing" constant="20" id="Tvn-60-ZEO"/>
+                <constraint firstAttribute="trailing" secondItem="dwA-YO-eL5" secondAttribute="trailing" constant="20" id="VGE-6N-4UX"/>
+                <constraint firstItem="JGH-QC-2vU" firstAttribute="width" secondItem="dwA-YO-eL5" secondAttribute="width" id="WIa-sq-hmy"/>
+                <constraint firstItem="JGH-QC-2vU" firstAttribute="centerY" secondItem="dwA-YO-eL5" secondAttribute="centerY" constant="2" id="XyU-Vl-mft"/>
+                <constraint firstAttribute="bottom" secondItem="4jd-r4-y93" secondAttribute="bottom" id="cbR-vF-r5v"/>
+                <constraint firstItem="WNi-8j-2YR" firstAttribute="top" secondItem="eer-2c-cpw" secondAttribute="top" id="fwJ-qc-kHq"/>
+                <constraint firstItem="4jd-r4-y93" firstAttribute="top" secondItem="1" secondAttribute="top" id="hxa-rZ-XmR"/>
+                <constraint firstItem="WNi-8j-2YR" firstAttribute="bottom" secondItem="eer-2c-cpw" secondAttribute="bottom" id="sYR-U8-Qff"/>
+                <constraint firstItem="JGH-QC-2vU" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="15" id="xxy-eu-Btf"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="98" y="149"/>
         </view>
     </objects>
     <resources>

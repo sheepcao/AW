@@ -32,7 +32,7 @@ SystemSoundID soundEN;
 }
 */
 
--(id)initWithWordsAndSound:(NSString *)chinese english:(NSString *)eng soundCN:(NSString *)sndCN soundEN:(NSString *)sndEN
+-(id)initWithWordsAndSound:(NSString *)chinese english:(NSString *)eng soundCN:(NSString *)sndCN soundEN:(NSString *)sndEN between:(UIButton *)left and :(UIButton *)right
 {
     self = [super init];
 
@@ -46,7 +46,8 @@ SystemSoundID soundEN;
             
         }else
         {
-            self.frame = CGRectMake(80, 70, 160, 120);
+//             self.wrongLabel = [[UIImageView alloc] initWithFrame:CGRectMake(self.priorButton.frame.origin.x + self.priorButton.frame.size.width+5, self.priorButton.frame.origin.y -10, self.nextButton.frame.origin.x - self.priorButton.frame.origin.x - self.priorButton.frame.size.width -10, 100)];
+            self.frame = CGRectMake(left.frame.origin.x + left.frame.size.width+5, left.frame.origin.y -10, right.frame.origin.x - left.frame.origin.x - left.frame.size.width -10, 100);
             
             self.answerCN = [[UIButton alloc] initWithFrame:CGRectMake(15, 13, 140, 45)];
             self.answerEN = [[UIButton alloc] initWithFrame:CGRectMake(15, 62, 140, 45)];

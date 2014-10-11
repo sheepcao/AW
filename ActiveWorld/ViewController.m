@@ -63,6 +63,19 @@
 {
     NSLog(@"button:%ld",button.tag);
     game.levelNumber = [NSNumber numberWithInteger:button.tag];
+    
+//    game.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+//    [self presentViewController:game animated:YES completion:Nil ];
+//
+
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionMoveIn;
+    transition.subtype = kCATransitionFromRight;
+    transition.delegate = self;
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    
     [self.navigationController pushViewController:game animated:YES];
     
 }

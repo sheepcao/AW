@@ -20,7 +20,8 @@
 @property (nonatomic,strong) NSString *soundCnName;
 
 
--(id)initWithWordsAndSound:(NSString *)chinese english:(NSString *)eng soundCN:(NSString *)sndCN soundEN:(NSString *)sndEN;
+-(id)initWithWordsAndSound:(NSString *)chinese english:(NSString *)eng soundCN:(NSString *)sndCN soundEN:(NSString *)sndEN between:(UIButton *)left and :(UIButton *)right;
+
 
 -(void)setWordsAndSound:(NSString *)chinese english:(NSString *)eng soundCN:(NSString *)sndCN soundEN:(NSString *)sndEN;
 

@@ -30,6 +30,7 @@ bool levelLock[bigLevel];
 
 
 
+@property (weak, nonatomic) IBOutlet UIImageView *backIMG;
 
 @property (strong, nonatomic) UIImage *backgroundImg;
 //@property (strong, nonatomic) NSString *backgroundNames;
@@ -59,7 +60,7 @@ bool levelLock[bigLevel];
 - (IBAction)priorLevel;
 - (IBAction)nextLevel;
 - (IBAction)backToLevel;
-- (IBAction)share;
+//- (IBAction)share;
 - (IBAction)animationTapped:(id)sender;
 
 @end
