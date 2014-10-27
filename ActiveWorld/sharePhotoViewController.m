@@ -20,7 +20,12 @@
 
 @end
 
+
 @implementation sharePhotoViewController
+
+@synthesize backButton;
+@synthesize isCancelCameraTap;
+@synthesize shareImg;
 
 //double takePhotoX[6] = {80,213,103,227,70,220};
 //double takePhotoY[6] = {220,213,103,227,70,220};
@@ -97,11 +102,11 @@
         self.retakeButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 395, 70, 70)];
         self.savePic = [[UIButton alloc] initWithFrame:CGRectMake(243, 408, 50, 50)];
         if ([CommonUtility isSystemVersionLessThan7]) {
-        self.photograph = [[UIButton alloc] initWithFrame:CGRectMake(100, 290, 120, 60)];
+//        self.photograph = [[UIButton alloc] initWithFrame:CGRectMake(100, 290, 120, 60)];
             
         }else
         {
-        self.photograph = [[UIButton alloc] initWithFrame:CGRectMake(100, 310, 120, 60)];
+//        self.photograph = [[UIButton alloc] initWithFrame:CGRectMake(100, 310, 120, 60)];
         }
 
 
@@ -111,7 +116,7 @@
         self.share = [[UIButton alloc] initWithFrame:CGRectMake(125, 490, 80, 80)];
         self.retakeButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 490, 80, 80)];
         self.savePic = [[UIButton alloc] initWithFrame:CGRectMake(243, 498, 60, 60)];
-        self.photograph = [[UIButton alloc] initWithFrame:CGRectMake(100, 390, 120, 60)];
+//        self.photograph = [[UIButton alloc] initWithFrame:CGRectMake(100, 390, 120, 60)];
         
         
     }
@@ -131,11 +136,11 @@
         [self.savePic setImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-保存" ofType:@"png"]] forState:UIControlStateNormal];
     }
 //    [self.share setImage:[UIImage imageNamed:@"分享"] forState:UIControlStateNormal];
-//    [self.share addTarget:self action:@selector(shareFunc) forControlEvents:UIControlEventTouchUpInside];
+    [self.share addTarget:self action:@selector(shareFunc) forControlEvents:UIControlEventTouchUpInside];
 
 //    self.retakeButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 490, 80, 80)];
 //    [self.retakeButton setImage:[UIImage imageNamed:@"重拍"] forState:UIControlStateNormal];
-    [self.retakeButton addTarget:self action:@selector(photograph:) forControlEvents:UIControlEventTouchUpInside];
+    [self.retakeButton addTarget:self action:@selector(takePhotograph) forControlEvents:UIControlEventTouchUpInside];
     
 //    self.savePic = [[UIButton alloc] initWithFrame:CGRectMake(243, 498, 60, 60)];
 //    [self.savePic setImage:[UIImage imageNamed:@"保存"] forState:UIControlStateNormal];
@@ -156,13 +161,13 @@
         self.photograph.backgroundColor = [UIColor lightGrayColor];
     }
  */
-    [self.photograph addTarget:self action:@selector(photograph:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.photograph addTarget:self action:@selector(photograph:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:self.shareView];
     [self.view sendSubviewToBack:self.shareView];
     
-    [self.view addSubview:self.photograph];
-    [self.photograph setHidden:NO];
+//    [self.view addSubview:self.photograph];
+//    [self.photograph setHidden:NO];
 
     //    new version
     [self.view addSubview:self.share];
@@ -185,12 +190,19 @@
 
     //拍摄完后的界面
 //    if (self.backImage.image) {
+    
+    if (isCancelCameraTap) {
+        [self returnToGame];
+        return;
+    }
+    
+    
     if (_afterShutter){
-        [self.photograph setHidden:YES];
+//        [self.photograph setHidden:YES];
         [self.share setHidden:NO];
         [self.retakeButton setHidden:NO];
         [self.savePic setHidden:NO];
-        
+        [self.backButton setHidden:NO];
         if ([[UIScreen mainScreen] bounds].size.height == 480) {
 //            self.view.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"拍照底图480" ofType:@"png"]]];
             UIGraphicsBeginImageContext(self.view.frame.size);
@@ -219,6 +231,7 @@
             UIGraphicsEndImageContext();
             self.view.backgroundColor = [UIColor colorWithPatternImage:image];
             [self.frontImage setImage:[UIImage imageNamed:self.frontImageName]];
+            [self.view bringSubviewToFront:self.frontImage];
 
         }
 
@@ -228,52 +241,54 @@
         
     }else//未拍摄时的界面
     {
-        if ([[UIScreen mainScreen] bounds].size.height == 480) {
-            if ([CommonUtility isSystemLangChinese]) {
-                
-//                self.view.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"notFinish460" ofType:@"png"]]];
-                UIGraphicsBeginImageContext(self.view.frame.size);
-                [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"notFinish460" ofType:@"png"]] drawInRect:self.view.bounds];
-                UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-                self.view.backgroundColor = [UIColor colorWithPatternImage:image];
-            }else
-            {
-//                self.view.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-notFinish460" ofType:@"png"]]];
-                UIGraphicsBeginImageContext(self.view.frame.size);
-                [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-notFinish460" ofType:@"png"]] drawInRect:self.view.bounds];
-                UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-                self.view.backgroundColor = [UIColor colorWithPatternImage:image];
-            }
-
-
-            
-        }else
-        {
-            if ([CommonUtility isSystemLangChinese]) {
-           
-//                self.view.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"notFinish" ofType:@"png"]]];
-                UIGraphicsBeginImageContext(self.view.frame.size);
-                [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"notFinish" ofType:@"png"]] drawInRect:self.view.bounds];
-                UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-                self.view.backgroundColor = [UIColor colorWithPatternImage:image];
-            }else
-            {
-//                self.view.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-notFinish" ofType:@"png"]]];
-                UIGraphicsBeginImageContext(self.view.frame.size);
-                [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-notFinish" ofType:@"png"]] drawInRect:self.view.bounds];
-                UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-                self.view.backgroundColor = [UIColor colorWithPatternImage:image];
-            }
-        }
+//        if ([[UIScreen mainScreen] bounds].size.height == 480) {
+//            if ([CommonUtility isSystemLangChinese]) {
+//                
+////                self.view.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"notFinish460" ofType:@"png"]]];
+//                UIGraphicsBeginImageContext(self.view.frame.size);
+//                [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"notFinish460" ofType:@"png"]] drawInRect:self.view.bounds];
+//                UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//                UIGraphicsEndImageContext();
+//                self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+//            }else
+//            {
+////                self.view.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-notFinish460" ofType:@"png"]]];
+//                UIGraphicsBeginImageContext(self.view.frame.size);
+//                [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-notFinish460" ofType:@"png"]] drawInRect:self.view.bounds];
+//                UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//                UIGraphicsEndImageContext();
+//                self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+//            }
+//
+//
+//            
+//        }else
+//        {
+//            if ([CommonUtility isSystemLangChinese]) {
+//           
+////                self.view.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"notFinish" ofType:@"png"]]];
+//                UIGraphicsBeginImageContext(self.view.frame.size);
+//                [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"notFinish" ofType:@"png"]] drawInRect:self.view.bounds];
+//                UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//                UIGraphicsEndImageContext();
+//                self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+//            }else
+//            {
+////                self.view.backgroundColor = [UIColor colorWithPatternImage:    [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-notFinish" ofType:@"png"]]];
+//                UIGraphicsBeginImageContext(self.view.frame.size);
+//                [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"en-notFinish" ofType:@"png"]] drawInRect:self.view.bounds];
+//                UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//                UIGraphicsEndImageContext();
+//                self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+//            }
+//        }
+        [self.backButton setHidden:YES];
         [self.frontImage setImage:nil];
-        [self.photograph setHidden:NO];
+//        [self.photograph setHidden:YES];
         [self.share setHidden:YES];
         [self.retakeButton setHidden:YES];
         [self.savePic setHidden:YES];
+        [self takePhotograph];
      //   [self.saveImage setHidden:YES];
 
     }
@@ -319,9 +334,9 @@
 
 
 
-- (IBAction)photograph:(id)sender {
+- (IBAction)takePhotograph {
     
-    [CommonUtility tapSound];
+//    [CommonUtility tapSound];
 
   //  [UIApplication sharedApplication].statusBarHidden = YES;
     if([CommonUtility isSystemVersionLessThan7])
@@ -575,7 +590,7 @@
 }
 
 
-- (IBAction)returnToGame:(UIButton *)sender {
+- (IBAction)returnToGame{
     [CommonUtility tapSound:@"backAndCancel" withType:@"mp3"];
 
     [self dismissViewControllerAnimated:YES completion:Nil];
@@ -583,9 +598,13 @@
 }
 -(void)returnToShare
 {
-    [CommonUtility tapSound:@"backAndCancel" withType:@"mp3"];
+//    [CommonUtility tapSound:@"backAndCancel" withType:@"mp3"];
+    
+    isCancelCameraTap = YES;
 
-    [self dismissViewControllerAnimated:YES completion:Nil];
+    [self.picker dismissViewControllerAnimated:NO completion:Nil];
+    
+    
 
 }
 
@@ -619,8 +638,32 @@
 
     
 }
+-(void)shareFunc
+{
+    [CommonUtility tapSound];
+   
+    CustomActionSheet* sheet = [[CustomActionSheet alloc] initWithButtons:[NSArray arrayWithObjects:
+                                                                           [CustomActionSheetButton buttonWithImage:[UIImage imageNamed:@"weixin"] title:@"微信好友"],
+                                                                           [CustomActionSheetButton buttonWithImage:[UIImage imageNamed:@"wx_friend"] title:@"朋友圈"],
+                                                                           [CustomActionSheetButton buttonWithImage:[UIImage imageNamed:@"wx_favorite"] title:@"收藏到微信"],
+                                                                           //                                                                            [CustomActionSheetButton buttonWithImage:[UIImage imageNamed:@"weibo"] title:@"新浪微博"],[CustomActionSheetButton buttonWithImage:[UIImage imageNamed:@"Qzone"] title:@"QQ空间"],[CustomActionSheetButton buttonWithImage:[UIImage imageNamed:@"qq"] title:@"QQ好友"],
+                                                                           
+                                                                           nil]];
+    sheet.delegate = self;
+    [sheet showInView:self.view];
+    
+    [self.shareView sendSubviewToBack:self.backImage];
+    UIGraphicsBeginImageContext(self.shareView.frame.size);
+    //获取图像
+    [self.shareView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    shareImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageWriteToSavedPhotosAlbum(shareImg, nil, nil,nil);
+    
+}
 
-
+//
 //-(void)shareFunc
 //{
 //    [CommonUtility tapSound];
@@ -684,6 +727,88 @@
 //                            }];
 //}
 //
+
+
+
+#pragma mark shareMethod
+
+-(void)choseAtIndex:(int)index
+{
+    switch (index) {
+        case 0:
+            _scene = WXSceneSession;
+            [self sendImageContent];
+            break;
+        case 1:
+            _scene = WXSceneTimeline;
+            [self sendImageContent];
+            
+            break;
+        case 2:
+            _scene = WXSceneFavorite;
+            [self sendImageContent];
+            
+            break;
+        case 3:
+            
+            break;
+        case 4:
+            
+            break;
+        case 5:
+            
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+- (void) sendImageContent
+{
+    
+    
+    WXMediaMessage *message = [WXMediaMessage message];
+    [message setThumbImage:shareImg];
+    
+    WXImageObject *ext = [WXImageObject object];
+    //    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"res5thumb" ofType:@"png"];
+    //    NSLog(@"filepath :%@",filePath);
+    //    ext.imageData = [NSData dataWithContentsOfFile:filePath];
+    //
+    //    //UIImage* image = [UIImage imageWithContentsOfFile:filePath];
+    //    UIImage* image = [UIImage imageWithData:ext.imageData];
+    ext.imageData = UIImageJPEGRepresentation(shareImg,1);
+    
+    //    UIImage* image = [UIImage imageNamed:@"res5thumb.png"];
+    //    ext.imageData = UIImagePNGRepresentation(image);
+    
+    message.mediaObject = ext;
+    
+    SendMessageToWXReq* req = [[SendMessageToWXReq alloc] init];
+    req.bText = NO;
+    req.message = message;
+    req.scene = _scene;
+    
+    [WXApi sendReq:req];
+}
+- (void) RespImageContent
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    [message setThumbImage:shareImg];
+    
+    WXImageObject *ext = [WXImageObject object];
+    
+    ext.imageData = UIImageJPEGRepresentation(shareImg,1);
+    message.mediaObject = ext;
+    
+    GetMessageFromWXResp* resp = [[GetMessageFromWXResp alloc] init];
+    resp.message = message;
+    resp.bText = NO;
+    
+    [WXApi sendResp:resp];
+}
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

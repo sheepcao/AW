@@ -14,6 +14,8 @@
 
 @property (nonatomic,strong) UIButton *answerCN;
 @property (nonatomic,strong) UIButton *answerEN;
+@property (nonatomic,strong) UIButton *customPlay;
+@property (nonatomic,strong) UIButton *customRecorder;
 @property (nonatomic,strong) NSNumber *soundCNObj;
 @property (nonatomic,strong) NSNumber *soundENObj;
 @property (nonatomic,strong) NSString *soundEnName;

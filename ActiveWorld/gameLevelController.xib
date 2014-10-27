@@ -3,14 +3,20 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="segoe print.ttf">
+            <string>SegoePrint</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="gameLevelController">
             <connections>
+                <outlet property="FavoriteButton" destination="eer-2c-cpw" id="gQC-95-hr3"/>
                 <outlet property="backButton" destination="JGH-QC-2vU" id="ZND-Va-mdX"/>
                 <outlet property="backIMG" destination="4jd-r4-y93" id="ibu-uO-1TX"/>
                 <outlet property="levelCount" destination="jbD-O6-huF" id="qn4-QA-gFD"/>
                 <outlet property="nextButton" destination="WNi-8j-2YR" id="B2u-MI-NHY"/>
-                <outlet property="priorButton" destination="eer-2c-cpw" id="Y2f-FQ-iz0"/>
+                <outlet property="registerBtn" destination="oIj-DI-TJa" id="BUX-jc-cMW"/>
                 <outlet property="shareBtn" destination="dwA-YO-eL5" id="9Ng-Kh-onk"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -63,9 +69,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eer-2c-cpw">
-                    <rect key="frame" x="20" y="93" width="59" height="40"/>
+                    <rect key="frame" x="20" y="90" width="45" height="45"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <state key="normal" image="prior.png">
+                    <state key="normal" image="icon_unfollow.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -81,6 +87,17 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4jd-r4-y93">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oIj-DI-TJa">
+                    <rect key="frame" x="63" y="518" width="194" height="30"/>
+                    <color key="backgroundColor" red="0.29621920620437958" green="0.66409101277372262" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="SegoePrint" family="Segoe Print" pointSize="16"/>
+                    <state key="normal" title="Register Now">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="registerOnline:" destination="-1" eventType="touchUpInside" id="Nv4-sO-gg3"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -88,21 +105,21 @@
                 <constraint firstItem="JGH-QC-2vU" firstAttribute="top" secondItem="jbD-O6-huF" secondAttribute="top" id="4SR-fl-ncd"/>
                 <constraint firstItem="JGH-QC-2vU" firstAttribute="bottom" secondItem="dwA-YO-eL5" secondAttribute="bottom" id="ALe-Fw-YqS"/>
                 <constraint firstItem="jbD-O6-huF" firstAttribute="height" secondItem="JGH-QC-2vU" secondAttribute="height" id="Esr-hn-mUJ"/>
-                <constraint firstItem="WNi-8j-2YR" firstAttribute="width" secondItem="eer-2c-cpw" secondAttribute="width" id="Gid-cg-xxf"/>
+                <constraint firstItem="WNi-8j-2YR" firstAttribute="width" secondItem="eer-2c-cpw" secondAttribute="width" constant="14" id="Gid-cg-xxf"/>
                 <constraint firstItem="eer-2c-cpw" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="Mhb-8Q-X14"/>
                 <constraint firstItem="4jd-r4-y93" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="Mpa-47-BL7"/>
                 <constraint firstItem="JGH-QC-2vU" firstAttribute="top" secondItem="1" secondAttribute="top" constant="23" id="OG6-Jq-FXa"/>
                 <constraint firstItem="jbD-O6-huF" firstAttribute="leading" secondItem="JGH-QC-2vU" secondAttribute="trailing" constant="59" id="OLx-8A-0lB"/>
-                <constraint firstItem="eer-2c-cpw" firstAttribute="top" secondItem="JGH-QC-2vU" secondAttribute="bottom" constant="36" id="Ra6-9R-i59"/>
+                <constraint firstItem="eer-2c-cpw" firstAttribute="top" secondItem="JGH-QC-2vU" secondAttribute="bottom" constant="33" id="Ra6-9R-i59"/>
                 <constraint firstAttribute="trailing" secondItem="4jd-r4-y93" secondAttribute="trailing" id="SIt-hI-2W5"/>
                 <constraint firstAttribute="trailing" secondItem="WNi-8j-2YR" secondAttribute="trailing" constant="20" id="Tvn-60-ZEO"/>
                 <constraint firstAttribute="trailing" secondItem="dwA-YO-eL5" secondAttribute="trailing" constant="20" id="VGE-6N-4UX"/>
                 <constraint firstItem="JGH-QC-2vU" firstAttribute="width" secondItem="dwA-YO-eL5" secondAttribute="width" id="WIa-sq-hmy"/>
                 <constraint firstItem="JGH-QC-2vU" firstAttribute="centerY" secondItem="dwA-YO-eL5" secondAttribute="centerY" constant="2" id="XyU-Vl-mft"/>
                 <constraint firstAttribute="bottom" secondItem="4jd-r4-y93" secondAttribute="bottom" id="cbR-vF-r5v"/>
-                <constraint firstItem="WNi-8j-2YR" firstAttribute="top" secondItem="eer-2c-cpw" secondAttribute="top" id="fwJ-qc-kHq"/>
+                <constraint firstItem="WNi-8j-2YR" firstAttribute="top" secondItem="eer-2c-cpw" secondAttribute="top" constant="3" id="fwJ-qc-kHq"/>
                 <constraint firstItem="4jd-r4-y93" firstAttribute="top" secondItem="1" secondAttribute="top" id="hxa-rZ-XmR"/>
-                <constraint firstItem="WNi-8j-2YR" firstAttribute="bottom" secondItem="eer-2c-cpw" secondAttribute="bottom" id="sYR-U8-Qff"/>
+                <constraint firstItem="WNi-8j-2YR" firstAttribute="bottom" secondItem="eer-2c-cpw" secondAttribute="bottom" constant="-2" id="sYR-U8-Qff"/>
                 <constraint firstItem="JGH-QC-2vU" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="15" id="xxy-eu-Btf"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -112,8 +129,8 @@
     <resources>
         <image name="camera.png" width="98" height="69"/>
         <image name="camera2.png" width="100" height="69"/>
+        <image name="icon_unfollow.png" width="128" height="128"/>
         <image name="next.png" width="211" height="135"/>
-        <image name="prior.png" width="211" height="135"/>
         <image name="returnTapped.png" width="143" height="96"/>
         <image name="returnToLevel.png" width="143" height="97"/>
     </resources>

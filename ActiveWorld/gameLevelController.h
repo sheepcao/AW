@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "teachingView.h"
-//#import "sharePhotoViewController.h"
+#import "sharePhotoViewController.h"
 #import "uncompleteImage.h"
 #import "globalVar.h"
 
@@ -19,19 +20,28 @@ static const int MAXanswer = 3;
 
 bool levelLock[bigLevel];
 
+@protocol messageDelegate <NSObject>
 
-@interface gameLevelController : UIViewController
+-(void)addMessage:(int)level andName:(NSString *)levelName Dir:(NSURL *)dir;
+
+@end
+
+@interface gameLevelController : UIViewController<AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 {
     int correct[MAXlevel];
     NSTimer *ADTimer;
+    AVAudioRecorder *recorder;
+    //AVAudioPlayer *player;
 
 }
-@property (nonatomic, strong) AVAudioPlayer *myAudioPlayer;
+@property (nonatomic , weak) id <messageDelegate> mesgDelegate;
+@property (nonatomic, strong) AVAudioPlayer *player;
 
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *backIMG;
 
+@property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 @property (strong, nonatomic) UIImage *backgroundImg;
 //@property (strong, nonatomic) NSString *backgroundNames;
 
@@ -41,7 +51,7 @@ bool levelLock[bigLevel];
 @property (strong, nonatomic)  UIButton *answer2;
 @property (strong, nonatomic)  UIButton *answer3;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
-@property (weak, nonatomic) IBOutlet UIButton *priorButton;
+@property (weak, nonatomic) IBOutlet UIButton *FavoriteButton;
 @property (strong,nonatomic) NSMutableArray *choices;
 @property (strong, nonatomic) IBOutlet UIButton *empty;
 @property (weak, nonatomic) IBOutlet UIButton *shareBtn;
@@ -56,11 +66,12 @@ bool levelLock[bigLevel];
 @property (nonatomic, assign) BOOL isFormRewordFlag;
 
 @property (nonatomic ,strong) NSNumber *levelNumber;
-
+@property (nonatomic ,strong) NSTimer *timer;
 - (IBAction)priorLevel;
 - (IBAction)nextLevel;
 - (IBAction)backToLevel;
 //- (IBAction)share;
 - (IBAction)animationTapped:(id)sender;
+- (IBAction)registerOnline:(id)sender;
 
 @end

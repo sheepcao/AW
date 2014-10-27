@@ -7,6 +7,7 @@
 //
 
 #import "gameLevelController.h"
+#import "webViewController.h"
 
 //ad...big
 #import "AppDelegate.h"
@@ -19,6 +20,7 @@
 
 
 @synthesize backIMG;
+@synthesize mesgDelegate;
 
 
 @synthesize animationBegin;
@@ -27,7 +29,7 @@
 @synthesize answer2;
 @synthesize answer3;
 @synthesize nextButton;
-@synthesize priorButton;
+@synthesize FavoriteButton;
 @synthesize choices;
 @synthesize empty;
 @synthesize levelCount;
@@ -38,16 +40,22 @@
 @synthesize webView;
 @synthesize questionMark;
 @synthesize backButton;
+@synthesize registerBtn;
 
 @synthesize levelNumber;
+@synthesize timer;
+@synthesize player;
 
+bool isFavor ;
 
-
-double posX[MAXlevel] = {216.6,113.1,107.4,118.5,90.6,/*5*/141.4};
-double posY[MAXlevel] = {277.1,284.3,282.5,195.1,340.1,/*5*/274.7};
+double posX[MAXlevel] = {216.6,123.1,107.4,118.5,90.6,/*5*/141.4};
+double posY[MAXlevel] = {277.1,321.3,282.5,195.1,340.1,/*5*/274.7};
 double animationSpeed[MAXlevel] = {0.35,0.31,0.27,0.34,0.33,/*5*/0.24};
-double repeatTime[MAXlevel] = {3,1,3,1,1,/*5*/2};
+double repeatTime[MAXlevel] = {3,3,3,5,2,4};
 bool haveFixed[MAXlevel] = {NO};
+double largeEmpty[MAXlevel] = {30,30,55,55,55};
+
+
 bool notJumpOver = NO;
 
 
@@ -66,18 +74,30 @@ NSMutableArray  *arrayGif;
 {
     [super viewDidLoad];
     
+
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
+    level = [self.levelNumber intValue];
+    isFavor = [CommonUtility checkFavoritesWithCurrentLevel:level];
+    if (isFavor) {
+        [self.FavoriteButton setImage:[UIImage imageNamed:@"icon_follow"] forState:UIControlStateNormal];
+    }else
+    {
+        [self.FavoriteButton setImage:[UIImage imageNamed:@"icon_unfollow"] forState:UIControlStateNormal];
+    }
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
 
 {
-    level = [self.levelNumber intValue];
 
 
-    
-    
-    
-    
     
     if ([CommonUtility isSystemLangChinese]) {
         
@@ -99,7 +119,7 @@ NSMutableArray  *arrayGif;
     }
 
     
-    picture = [[UIImageView alloc] initWithFrame:CGRectMake(self.priorButton.center.x, 190,self.nextButton.center.x - self.priorButton.center.x ,(self.nextButton.center.x - self.priorButton.center.x) * 230/250)];
+    picture = [[UIImageView alloc] initWithFrame:CGRectMake(self.FavoriteButton.center.x, 190,self.nextButton.center.x - self.FavoriteButton.center.x ,(self.nextButton.center.x - self.FavoriteButton.center.x) * 230/250)];
     
     answer2 = [[UIButton alloc] initWithFrame:CGRectMake(picture.center.x-27.5, picture.frame.origin.y + picture.frame.size.height + 30, 55, 55)];
     answer2.tag = 2;
@@ -147,9 +167,14 @@ NSMutableArray  *arrayGif;
     [self.animationBegin addTarget:self action:@selector(animationTapped:) forControlEvents:UIControlEventTouchUpInside];
     
     self.choices = [[NSMutableArray alloc] initWithObjects:self.answer1,self.answer2,self.answer3, nil];
-    NSString *words1 = @"猪,猫,兔子,鸡,青蛙,蜜蜂,狗,鲨鱼,蜗牛,考拉,羽毛球,足球,乒乓球,高尔夫,保龄球,射箭,滑雪,篮球,帆船,举重,牛奶,土豆,月饼,栗子,米饭,披萨饼,西瓜,花生,橙子,黄瓜,眼镜,牙刷,钢笔,红绿灯,奶嘴,卫生间,钟表,蜡烛,放大镜,洗衣液,向日葵,柳树,玫瑰,荷花,竹子,松树,仙人掌,银杏树,菊花,牵牛花";
+    
+    
+//    NSString *words1 = @"游泳,篮球,钓鱼,野营,棒球,小提琴,鲨鱼,蜗牛,考拉,羽毛球,足球,乒乓球,高尔夫,保龄球,射箭,滑雪,篮球,帆船,举重,牛奶,土豆,月饼,栗子,米饭,披萨饼,西瓜,花生,橙子,黄瓜,眼镜,牙刷,钢笔,红绿灯,奶嘴,卫生间,钟表,蜡烛,放大镜,洗衣液,向日葵,柳树,玫瑰,荷花,竹子,松树,仙人掌,银杏树,菊花,牵牛花";
+    NSString *words1 = @"游泳,篮球,钓鱼,野营,棒球,小提琴";
+
     wordsCN = [words1 componentsSeparatedByString:@","];
-    NSString *words2 = @"pig,cat,rabbit,chicken,frog,bee,dog,shark,snail,koala,badminton,football,table tennis,golf,bowling,archery,skiing,basketball,sailing,weighting,milk,potato,mooncake,chestnut,rice,pizza,watermelon,peanut,orange,cucumber,glasses,toothbrush,pen,traffic light,pacifier,toilet,clock,candle,magnifier,landry,sunflower,willow,rose,lotus,bamboo,pine,cactus,gingko,chrysanthemum,morning glory";
+//    NSString *words2 = @"swimming,basketball,fishing,camping,baseball,violin,dog,shark,snail,koala,badminton,football,table tennis,golf,bowling,archery,skiing,basketball,sailing,weighting,milk,potato,mooncake,chestnut,rice,pizza,watermelon,peanut,orange,cucumber,glasses,toothbrush,pen,traffic light,pacifier,toilet,clock,candle,magnifier,landry,sunflower,willow,rose,lotus,bamboo,pine,cactus,gingko,chrysanthemum,morning glory";
+    NSString *words2 = @"swimming,basketball,fishing,camping,baseball,violin";
     wordsEN = [words2 componentsSeparatedByString:@","];
     
     NSString *backgroundNames = @"animalBackground";
@@ -200,17 +225,9 @@ NSMutableArray  *arrayGif;
     [self setupWithEmptyPosition:self.myImg.positionX :self.myImg.positionY];
     
     
-    self.teachView = [[teachingView alloc] initWithWordsAndSound:wordsCN[level-1] english:wordsEN[level-1] soundCN:wordsCN[level-1] soundEN:wordsEN[level-1] between:priorButton and:nextButton];
+    self.teachView = [[teachingView alloc] initWithWordsAndSound:wordsCN[level-1] english:wordsEN[level-1] soundCN:wordsCN[level-1] soundEN:wordsEN[level-1] between:FavoriteButton and:nextButton];
     
-    if (!haveFixed[level-1]) {
-        
-        [self.nextButton setEnabled:NO];
-        
-    }else
-    {
-        [self.nextButton setEnabled:YES];
-        
-    }
+
     if (arrayGif.count>0) {
         //设置动画数组
         [self.questionMark setAnimationImages:arrayGif];
@@ -223,8 +240,20 @@ NSMutableArray  *arrayGif;
         
         
     }
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(buttonFlash) userInfo:nil repeats:YES];
 
 
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    if (timer != nil)
+    {
+        [timer invalidate];
+        timer = nil;
+    }
 }
 
 
@@ -255,7 +284,7 @@ NSMutableArray  *arrayGif;
     
     [self setImages:an1:an2 :an3 :pic];
    
-    [self.empty setFrame:CGRectMake(px, py, 55, 55)];
+    [self.empty setFrame:CGRectMake(px, py, largeEmpty[level-1], largeEmpty[level-1])];
         
     [self.questionMark setFrame:CGRectMake(0, 0, 55, 55)];
 
@@ -286,13 +315,13 @@ NSMutableArray  *arrayGif;
 //    }
     
     //每个主题的第一关不允许点击上一关
-    if (level == 1) {
-        [self.priorButton setEnabled:NO];
-    }else
-    {
-        [self.priorButton setEnabled:YES];
-
-    }
+//    if (level == 1) {
+//        [self.priorButton setEnabled:NO];
+//    }else
+//    {
+//        [self.priorButton setEnabled:YES];
+//
+//    }
     
     [self.animationBegin setHidden:YES];//每关开始不可点击。
 
@@ -339,7 +368,7 @@ NSMutableArray  *arrayGif;
 -(void)buttonTap:(UIButton *)sender
 {
 
-//    [CommonUtility tapSound:@"choiceSound" withType:@"mp3"];
+    [CommonUtility tapSound:@"choiceSound" withType:@"mp3"];
     
     if (sender.tag == 0) {
         if (self.empty.imageView.image) {
@@ -399,6 +428,8 @@ NSMutableArray  *arrayGif;
 -(void)animationOver
 {
     [self.animationBegin setHidden:NO];
+    [self.nextButton setEnabled:YES];
+    [self.FavoriteButton setEnabled:YES];
 
     [self.empty setHidden:NO];
     if (!haveFixed[level-1]) {
@@ -407,15 +438,7 @@ NSMutableArray  *arrayGif;
         haveFixed[level-1] = YES;
 
     }
-    //每个主题的第一关不允许点击上一关
-    if (level%10 == 1) {
-        [self.priorButton setEnabled:NO];
-        [self.nextButton setEnabled:YES];
-        
-    }else{
-        [self.nextButton setEnabled:YES];
-        [self.priorButton setEnabled:YES];
-    }
+   
     NSLog(@"%d",haveFixed[level-1]);
     NSLog(@"%d",levelTop);
     
@@ -425,7 +448,7 @@ NSMutableArray  *arrayGif;
 -(void)sayEnglish
 {
 //    AudioServicesPlaySystemSound([self.teachView.soundENObj intValue]);
-//    [CommonUtility tapSound:wordsEN[level-1] withType:@"wav"];
+    [CommonUtility tapSound:wordsEN[level-1] withType:@"wav"];
     
 }
 
@@ -434,7 +457,7 @@ NSMutableArray  *arrayGif;
     
     notJumpOver = YES;
     [self.nextButton setEnabled:NO];
-    [self.priorButton setEnabled:NO];
+    [self.FavoriteButton setEnabled:NO];
 
     
     /* fit for 4-inch screen */
@@ -449,11 +472,18 @@ NSMutableArray  *arrayGif;
     
     [self.teachView.answerCN addTarget:self action:@selector(chineseTap) forControlEvents:UIControlEventTouchUpInside];
     [self.teachView.answerEN addTarget:self action:@selector(englishTap) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.teachView.customPlay addTarget:self action:@selector(playRecord) forControlEvents:UIControlEventTouchUpInside];
+    [self.teachView.customRecorder addTarget:self action:@selector(recordSound) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self setupRecorder:level];
+
     [self.view addSubview:self.teachView];
+    
     
 //    AudioServicesPlaySystemSound([self.teachView.soundCNObj intValue]);
 
-//    [CommonUtility tapSound:wordsCN[level-1] withType:@"wav"];
+    [CommonUtility tapSound:wordsCN[level-1] withType:@"wav"];
 
     [NSTimer scheduledTimerWithTimeInterval:1.6 target:self selector:@selector(sayEnglish) userInfo:nil repeats:NO];
     
@@ -478,10 +508,6 @@ NSMutableArray  *arrayGif;
                 [arrayM removeObjectAtIndex:j];
             }
             
-//            if (arrayM.count>i-1) {
-//                [arrayM removeObjectAtIndex:i-1];//make every level's animation with different image count.
-//
-//            }
         }
     }
     
@@ -507,6 +533,91 @@ NSMutableArray  *arrayGif;
     
 }
 
+-(void)setupRecorder:(int)level
+{
+    
+    // Set the audio file
+    NSArray *pathComponents = [NSArray arrayWithObjects:
+                               [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
+                               [NSString stringWithFormat:@"message%d.caf",level],
+                               nil];
+    NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    
+    // Setup audio session
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    
+    // Define the recorder setting
+    NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
+    
+    [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
+    [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
+    [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
+    
+    // Initiate and prepare the recorder
+    recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
+    recorder.delegate = self;
+    recorder.meteringEnabled = YES;
+}
+
+-(void)recordSound
+{
+    if (!recorder.recording) {
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        [session setActive:YES error:nil];
+        
+        
+        // Start recording
+        [recorder prepareToRecord];
+
+        [recorder record];
+        [self.teachView.customRecorder setTitle:@"stop" forState:UIControlStateNormal];
+        
+    } else {
+        
+        // Pause recording
+        [recorder stop];
+        [self.teachView.customRecorder setTitle:@"Rec" forState:UIControlStateNormal];
+    }
+    
+    [self.teachView.customPlay setEnabled:NO];
+
+}
+
+-(void)playRecord
+{
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+
+    if (!recorder.recording){
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
+        NSLog(@"URL1:%@",recorder.url);
+
+        [self.teachView.customRecorder setEnabled:NO];
+        [player setDelegate:self];
+        player.volume = 1;
+        
+        
+        [player prepareToPlay];
+        
+   
+        [player play];
+    }
+}
+
+#pragma mark - recorder delegate
+- (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
+//    [recordPauseButton setTitle:@"Record" forState:UIControlStateNormal];
+    [self.teachView.customPlay setEnabled:YES];
+    NSString * name = [CommonUtility isSystemLangChinese]?wordsCN[level-1]:wordsEN[level-1];
+    [mesgDelegate addMessage:level andName:name Dir:recorder.url];
+}
+
+- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+
+    [self.teachView.customRecorder setEnabled:YES];
+
+}
 
 -(void)choiceBack
 {
@@ -542,7 +653,7 @@ NSMutableArray  *arrayGif;
 -(void)wrongAnswer{
     
     
-//    [CommonUtility tapSound:@"衰" withType:@"wav"];
+    [CommonUtility tapSound:@"衰" withType:@"wav"];
 
     
     int scoreTemp = [[scores objectAtIndex:((level-1)/10)] intValue];
@@ -565,7 +676,7 @@ NSMutableArray  *arrayGif;
     {
 //        self.wrongLabel = [[UIImageView alloc] initWithFrame:CGRectMake(80, 70, 160, 120)];
         
-        self.wrongLabel = [[UIImageView alloc] initWithFrame:CGRectMake(self.priorButton.frame.origin.x + self.priorButton.frame.size.width+5, self.priorButton.frame.origin.y -10, self.nextButton.frame.origin.x - self.priorButton.frame.origin.x - self.priorButton.frame.size.width -10, 100)];
+        self.wrongLabel = [[UIImageView alloc] initWithFrame:CGRectMake(self.FavoriteButton.frame.origin.x + self.FavoriteButton.frame.size.width+5, self.FavoriteButton.frame.origin.y -10, self.nextButton.frame.origin.x - self.FavoriteButton.frame.origin.x - self.FavoriteButton.frame.size.width -10, 100)];
     }
 
     [self.wrongLabel setImage:[UIImage imageNamed:@"board" ]];
@@ -606,7 +717,7 @@ NSMutableArray  *arrayGif;
     }
 }
 
-
+//favoriteTap
 - (IBAction)priorLevel {
 
     
@@ -614,19 +725,40 @@ NSMutableArray  *arrayGif;
 
     
 //    [MobClick event:@"2"];
-    
-    if (level>1) {
-        level--;
-        
-        [self.myImg setEmptyX:posX[level-1] Y:posY[level-1]];
-        [self setupWithEmptyPosition:self.myImg.positionX :self.myImg.positionY];
-        [self.teachView setWordsAndSound:wordsCN[level-1] english:wordsEN[level-1] soundCN:wordsCN[level-1] soundEN:wordsEN[level-1]];
-        
-        
-    }else if(level ==1)
+//    int a =1;
+//    int b =5;
+//    int c;
+//    
+//    int k = 3;
+//    c = (k<4)?b:a;
+//    NSLog(@"c:%d",c);
+
+    if ([CommonUtility isSystemLangChinese]) {
+        if(isFavor){
+            [CommonUtility removeFavoratesWith:level By:self.FavoriteButton];
+            isFavor = NO;
+
+        }else{
+            [CommonUtility addToFavoratesWith:level and:wordsCN[level-1] By:self.FavoriteButton];
+            isFavor = YES;
+        }
+
+
+    }else
     {
-        return;
+        if(isFavor){
+            [CommonUtility removeFavoratesWith:level By:self.FavoriteButton];
+            isFavor = NO;
+
+
+        }else{
+            [CommonUtility addToFavoratesWith:level and:wordsEN[level-1] By:self.FavoriteButton];
+            isFavor = YES;
+        }
+
     }
+    
+
 }
 
 
@@ -655,10 +787,12 @@ NSMutableArray  *arrayGif;
 -(void)changeImgs
 {
     
-    if (haveFixed[level-1]) {
-        
+//    if (haveFixed[level-1]) {
+    
         if (level<MAXlevel) {
             level++;
+            self.levelNumber = [NSNumber numberWithInt:level];
+
             notJumpOver = NO;
 
             [self.myImg setEmptyX:posX[level-1] Y:posY[level-1]];
@@ -671,7 +805,7 @@ NSMutableArray  *arrayGif;
             return;
             
         }
-    }
+//    }
 
 }
 
@@ -686,27 +820,27 @@ NSMutableArray  *arrayGif;
     
 }
 
-//- (IBAction)share {
-//    
-//    [CommonUtility tapSound];
-//
-//    
-////    sharePhotoViewController *myShare = [[sharePhotoViewController alloc] initWithNibName:@"sharePhotoViewController" bundle:nil];
-////    myShare.frontImageName = sharePic[(level-1)/10];
-////    myShare.afterShutter = NO;
-////    myShare.backImage.image = nil;
-////    
-////    myShare.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-////    [self presentViewController:myShare animated:YES completion:Nil ];
-//
-//}
+- (IBAction)share {
+    
+    [CommonUtility tapSound];
+
+    sharePhotoViewController *myShare = [[sharePhotoViewController alloc] initWithNibName:@"sharePhotoViewController" bundle:nil];
+    myShare.frontImageName = [NSString stringWithFormat:@"%@frame",wordsCN[level-1]];
+    myShare.afterShutter = NO;
+    myShare.isCancelCameraTap = NO;
+    myShare.backImage.image = nil;
+    
+    myShare.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:myShare animated:YES completion:Nil ];
+
+}
 
 - (IBAction)animationTapped:(id)sender {
     
-//    [CommonUtility tapSound];
+    [CommonUtility tapSound];
 
     [self.nextButton setEnabled:NO];
-    [self.priorButton setEnabled:NO];
+    [self.FavoriteButton setEnabled:NO];
     [self.empty setHidden:YES];
 
     
@@ -718,16 +852,21 @@ NSMutableArray  *arrayGif;
     [self performSelector:@selector(animationOnly) withObject:nil afterDelay:self.picture.animationDuration * repeatTime[level-1]];
 
 }
+
+- (IBAction)registerOnline:(id)sender {
+    
+    webViewController *myRegister = [[webViewController alloc] initWithNibName:@"webViewController" bundle:nil];
+    myRegister.UrlToOpen = @"http://www.active.com/search?keywords=swimming&location=San+Diego%2C+CA&category=Activities&daterange=All+future+dates&radius=25";
+    [self.navigationController pushViewController:myRegister animated:YES];
+    
+    
+    
+}
 -(void)animationOnly
 {
-    if (level%10 == 1) {
-        [self.priorButton setEnabled:NO];
-        [self.nextButton setEnabled:YES];
-        
-    }else{
-        [self.nextButton setEnabled:YES];
-        [self.priorButton setEnabled:YES];
-    }
+
+    [self.nextButton setEnabled:YES];
+    [self.FavoriteButton setEnabled:YES];
     [self.empty setHidden:NO];
 }
 
@@ -737,7 +876,7 @@ NSMutableArray  *arrayGif;
 //    [MobClick event:@"5"];
 //    AudioServicesPlaySystemSound([self.teachView.soundCNObj intValue]);
 
-//    [CommonUtility tapSound:wordsCN[level-1] withType:@"wav"];
+    [CommonUtility tapSound:wordsCN[level-1] withType:@"wav"];
 
 }
 
@@ -745,7 +884,7 @@ NSMutableArray  *arrayGif;
 {
 //      [MobClick event:@"6"];
 //    AudioServicesPlaySystemSound([self.teachView.soundENObj intValue]);
-//    [CommonUtility tapSound:wordsEN[level-1] withType:@"wav"];
+    [CommonUtility tapSound:wordsEN[level-1] withType:@"wav"];
 
 }
 -(void)emptyDisappear
@@ -760,41 +899,33 @@ NSMutableArray  *arrayGif;
 }
 
 
-#pragma backToLevelDelegate
+#pragma mark button flash
 
-//-(BOOL) isFromReward :(BOOL)check
-//{
-//    self.isFormRewordFlag = YES;
-//    return check;
-//}
+-(void)buttonFlash
+{
+    [self shimmerRegisterButton:registerBtn];
+}
 
+-(void)shimmerRegisterButton:(UIView *)registerButtonView {
+    registerButtonView.userInteractionEnabled=YES;
+    
+    
+    UIImageView *sheenImageView = [[UIImageView alloc] initWithFrame:CGRectMake(-100, 0, 86, 46)];
+    [sheenImageView setImage:[UIImage imageNamed:@"glow.png"]];
+    [sheenImageView setAlpha:0.0];
+    [registerButtonView addSubview:sheenImageView];
+    [registerButtonView setNeedsDisplay];
+//    NSLog(@"sheen %@ superview %@",sheenImageView, sheenImageView.superview);
+    [UIView animateWithDuration:1.0 delay:1.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        [sheenImageView setAlpha:1.0];
+        [sheenImageView setFrame:CGRectMake(100, 0, 86, 46)];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:1.0 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            [sheenImageView setFrame:CGRectMake(registerBtn.frame.size.width, 0, 86, 46)];
+            [sheenImageView setAlpha:0.0];
+        } completion:nil];
+    }];
+    
+}
 
-
-//-(void)willStopTimer
-//{
-//    [self.stopDelegate stopTimer];
-//}
-
-
-//ad...big
-//#pragma bigAD delegate method
-//- (void)interstitial:(GADInterstitial *)interstitial
-//didFailToReceiveAdWithError:(GADRequestError *)error {
-//    // Alert the error.
-//    
-//    NSLog(@"big ad error:%@",[error description]);
-//}
-//
-//- (void)interstitialDidReceiveAd:(GADInterstitial *)interstitial {
-//    [interstitial presentFromRootViewController:self];
-//
-//}
-//- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial
-//{
-//    [ADTimer invalidate];
-//    ADTimer =nil;
-//    ADTimer = [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(bigAd) userInfo:nil repeats:NO];
-//    
-//    
-//}
 @end
